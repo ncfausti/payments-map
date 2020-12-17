@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="tags">
+</div>
+<div id="map"></div>
+<footer class="center color-white bg-blue">&COPY; PaymentsMap.com 2020</footer>
+
+
+<script>
+    let markers = JSON.parse('{{ markers|escapejs }}');
+    console.log(markers);
+</script>
+<div id="docs">
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="placemarker-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Place Your Marker Here</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                What Would You Like To Say ? <br>
+                <input type="text" id="commentInput" placeholder="Your Message Here" maxlength="255" />
+                <input type="hidden" id="clickedLat" value="" />
+                <input type="hidden" id="clickedLng" value="" />
+                <input type="hidden" id="comment" value="" />
+                <input type="hidden" id="marker-uid" value="" />
+
+                <!-- Display a payment form -->
+                <form id="payment-form">
+                    {% csrf_token %}
+                    <div id="card-element">
+                        <!--Stripe.js injects the Card Element-->
+                    </div>
+                    <button id="submit">
+                        <div class="spinner hidden" id="spinner"></div>
+                        <span id="button-text">Pay</span>
+                    </button>
+                    <p id="card-errors" role="alert"></p>
+                    <p class="result-message hidden">
+                        Payment succeeded!
+                    </p>
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
